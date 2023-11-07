@@ -1,6 +1,6 @@
 ---
 - name: Start SSH Service
-  hosts: webserver
+  hosts: network_devices
   tasks:
     - name: Ensure SSH service is started
       systemd:
