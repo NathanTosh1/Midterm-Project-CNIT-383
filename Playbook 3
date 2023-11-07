@@ -1,0 +1,9 @@
+---
+- name: Start SSH Service
+  hosts: webserver
+  tasks:
+    - name: Ensure SSH service is started
+      systemd:
+        name: ssh
+        state: started
+      become: yes
