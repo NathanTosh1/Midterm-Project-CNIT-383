@@ -1,0 +1,17 @@
+- name: Configure QoS for Traffic Limiting
+  hosts:
+    - network_devices
+  tasks:
+    - name: QoS Class Maps
+      ios_config:
+        lines:
+          - class-map match-any LIMIT-TRAFFIC
+          - match access-group name LIMIT-ACL
+    - name: QoS Policy Map
+      ios_config:
+        lines:
+          - policy-map LIMIT-POLICY
+          - class LIMIT-TRAFFIC
+          - police cir 50000 conform-action transmit exceed-action drop
+          #Didn't make an ACL for this because I'm afraid that I might implicit deny traffic 
+          #I Don't intend to deny.
